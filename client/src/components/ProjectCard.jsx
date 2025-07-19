@@ -57,7 +57,7 @@ const ProjectCard = ({ project }) => {
       </div>
       <div className="flex justify-center">
         <a
-          href={`/portfolio/projects/${project.id}`}
+          href={`projects/${project.id}`}
           className="p-2 px-5 bg-gray-200 shadow-inner rounded-t-3xl shadow-gray-400"
         >
           <h1
