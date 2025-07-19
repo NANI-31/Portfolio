@@ -46,7 +46,7 @@ html {
 	--text-color: #fff;
 }
 
-body {
+body {scroll-behavior: smooth;
 	font-family: 'Inter', sans-serif;
 	/* background-color: #1a1b20; */
 	/* background-color: #23272a; */
