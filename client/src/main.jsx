@@ -10,6 +10,8 @@ import ProjectsPage1 from "./apps/projects/ProjectPage1";
 import Layout from "./components/Layout";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import NotFoundPage from "./components/NotFoundPage";
+// import NotFoundPage from "./components/Scene.jsx";
 // import Landing1 from './Landing1.jsx';
 
 createRoot(document.getElementById("root")).render(
@@ -18,11 +20,12 @@ createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-           <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<App />} />
               <Route path="projects" element={<ProjectsPage />} />
               <Route path="projects/:id" element={<ProjectsPage1 />} />
             </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </Provider>
