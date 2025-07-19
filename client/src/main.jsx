@@ -18,13 +18,10 @@ createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
-            <Route path="/portfolio" element={<Layout />}>
-              <Route index element={<App />} />
-              <Route path="/portfolio/projects" element={<ProjectsPage />} />
-              <Route
-                path="/portfolio/projects/:id"
-                element={<ProjectsPage1 />}
-              />
+            <Route index element={<Layout />}>
+              <Route path="/" element={<App />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:id" element={<ProjectsPage1 />} />
             </Route>
           </Routes>
         </BrowserRouter>
