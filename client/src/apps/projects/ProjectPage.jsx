@@ -11,7 +11,7 @@ export default function ProductsPage() {
     <div className="px-8 py-8 pt-5 lg:px-20 lg:pt-8">
       <div className="items-center justify-between pb-5 lg:flex ">
         <div className="flex items-center gap-2">
-          <Link to="/portfolio/">
+          <Link to="/">
             <IoIosArrowBack className="text-3xl" />
           </Link>
 
