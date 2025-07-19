@@ -20,8 +20,8 @@ createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/ element={<Layout />}>
               <Route index element={<App />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/projects/:id" element={<ProjectsPage1 />} />
+              <Route path="projects" element={<ProjectsPage />} />
+              <Route path="projects/:id" element={<ProjectsPage1 />} />
             </Route>
           </Routes>
         </BrowserRouter>
