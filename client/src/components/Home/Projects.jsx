@@ -72,7 +72,7 @@ const Projects = () => {
       </div>
       <div className="flex justify-center animate-pulse">
         <a
-          href={"/portfolio/projects"}
+          href={"projects"}
           className="px-5 py-1 text-sm duration-200 border-2 shadow-sm rounded-2xl hover:bg-gray-600 hover:text-white"
         >
           Show More
