@@ -39,7 +39,7 @@ const HomeName = ({ w }) => {
   }, []);
   const dynamic = w < 1024 ? 1.5 : 1.8;
   const textConfig = {
-    font: "/portfolio/fonts/Roblox Black Round_Regular.json",
+    font: "/fonts/Roblox Black Round_Regular.json",
     scale: dynamic,
     letterSpacing: -0.03,
     height: 0.25,
@@ -169,7 +169,7 @@ const Hero = () => {
               className=""
             >
               <img
-                src="/portfolio/bg1.jpg"
+                src="/bg1.jpg"
                 alt=""
                 height={600}
                 width={600}
