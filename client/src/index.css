@@ -5,7 +5,8 @@
 
 @font-face {
 	font-family: hello;
-	src: url(/fonts/Hello.ttf);
+	src: url(/fonts/Hello.ttf) format('truetype');
+	font-display: swap; 
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
