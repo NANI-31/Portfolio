@@ -1,7 +1,12 @@
 import { FiHome } from "react-icons/fi";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NotFoundPage() {
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/", { replace: true });
+  };
   return (
     <div className="min-h-screen bg-gray-500 dark:bg-[#111] flex items-center justify-center px-4">
       <div className="max-w-lg w-full text-center">
@@ -13,7 +18,6 @@ export default function NotFoundPage() {
           </h1>
           <div className="w-24 h-1 bg-white bg-gradient-to-r from-[#b57e10] via-[#f9df7b] via-[#b57e10] to-[#c7992b] mx-auto mt-4 rounded-full"></div>
         </div>
-
         {/* Error Message */}
         <div className="mb-12">
           <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">
@@ -27,11 +31,12 @@ export default function NotFoundPage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="group flex items-center justify-center gap-2 bg-gradient-to-r from-[#b57e10] via-[#bea954] via-[#b57e10] to-[#c7992b] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <button
+            onClick={goHome}
+            className="group flex items-center justify-center gap-2 bg-gradient-to-r from-[#b57e10] via-[#bea954] via-[#b57e10] to-[#c7992b] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
             <FiHome size={20} />
-            <a href="/">
-              <span className="hover:text-white ">Go Home</span>
-            </a>
+            <span className="hover:text-white ">Go Home</span>
           </button>
 
           <button className="group flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-lg border border-gray-600 hover:border-gray-500 transition-all duration-300 transform hover:scale-105">
