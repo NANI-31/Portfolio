@@ -3,14 +3,15 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function NotFoundPage() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gray-500 dark:bg-[#111] flex items-center justify-center px-4">
       <div className="max-w-lg w-full text-center">
         {/* Animated 404 */}
         <div className="mb-8">
-          <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse">
+          {/* <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-gradient-to-r from-[#b57e10] via-[#f9df7b] via-[#b57e10] to-[#c7992b] bg-clip-text animate-pulse"> */}
+          <h1 className="text-8xl md:text-9xl font-extrabold text-white animate-pulse">
             404
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mt-4 rounded-full"></div>
+          <div className="w-24 h-1 bg-white bg-gradient-to-r from-[#b57e10] via-[#f9df7b] via-[#b57e10] to-[#c7992b] mx-auto mt-4 rounded-full"></div>
         </div>
 
         {/* Error Message */}
@@ -26,10 +27,10 @@ export default function NotFoundPage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="group flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <button className="group flex items-center justify-center gap-2 bg-gradient-to-r from-[#b57e10] via-[#bea954] via-[#b57e10] to-[#c7992b] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             <FiHome size={20} />
             <a href="/">
-              <span className="hover:text-white">Go Home</span>
+              <span className="hover:text-white ">Go Home</span>
             </a>
           </button>
 

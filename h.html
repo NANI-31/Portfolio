@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wave Shader Effect</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #111215;
+      }
+
+      #shader-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* This ensures it stays in the background */
+      }
+
+      .content {
+        position: relative;
+        z-index: 10; /* To make sure content is on top of the shader */
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+
+      .content a {
+        text-decoration: none;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        color: white;
+        background-color: black;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        padding: 5px 10px;
+        transition: 0.1s all ease-in;
+      }
+
+      .content a:hover {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0px 2px 0 #349eff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Shader Container for Wave Effect -->
+    <div id="shader-container"></div>
+
+    <!-- Content of the Page -->
+    <div class="content">
+      <h1>Interactive Wave Shader Page</h1>
+      <p>Hover over the background to see the wave effect</p>
+      <div class="jux-linx">
+        <a href="https://stacksorted.com/image-effects/cuberto" target="_blank"
+          >Source</a
+        >
+        <a href="https://youtu.be/gGvYq6baFiQ">Watch me explain this</a>
+      </div>
+    </div>
+
+    <script>
+      // Your wave shader JavaScript code here
+      const shaderContainer = document.getElementById("shader-container");
+
+      let scene, camera, renderer, planeMesh;
+
+      let currentState = {
+        mousePosition: { x: 0, y: 0 },
+        waveIntensity: 0.005,
+      };
+      let targetState = { mousePosition: { x: 0, y: 0 }, waveIntensity: 0.005 };
+
+      const ANIMATION_CONFIG = {
+        transitionSpeed: 0.03,
+        baseIntensity: 0.005,
+        hoverIntensity: 0.009,
+      };
+
+      // Shaders
+      const vertexShader = `
+      varying vec2 vUv;
+      void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `;
+
+      const fragmentShader = `
+      uniform float u_time;
+      uniform vec2 u_mouse;
+      uniform float u_intensity;
+      uniform sampler2D u_texture;
+      varying vec2 vUv;
+
+      void main() {
+          vec2 uv = vUv;
+          float wave1 = sin(uv.x * 10.0 + u_time * 0.5 + u_mouse.x * 5.0) * u_intensity;
+          float wave2 = sin(uv.y * 12.0 + u_time * 0.8 + u_mouse.y * 4.0) * u_intensity;
+          float wave3 = cos(uv.x * 8.0 + u_time * 0.5 + u_mouse.x * 3.0) * u_intensity;
+          float wave4 = cos(uv.y * 9.0 + u_time * 0.7 + u_mouse.y * 3.5) * u_intensity;
+
+          uv.y += wave1 + wave2;
+          uv.x += wave3 + wave4;
+
+          gl_FragColor = texture2D(u_texture, uv);
+      }
+    `;
+
+      function initializeScene() {
+        // Setup camera
+        camera = new THREE.PerspectiveCamera(
+          80,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          10
+        );
+        camera.position.z = 1;
+
+        // Create scene
+        scene = new THREE.Scene();
+
+        // Setup shader uniforms
+        const shaderUniforms = {
+          u_time: { type: "f", value: 1.0 },
+          u_mouse: { type: "v2", value: new THREE.Vector2() },
+          u_intensity: { type: "f", value: currentState.waveIntensity },
+          u_texture: {
+            type: "t",
+            value: new THREE.TextureLoader().load(
+              "https://picsum.photos/200/300"
+            ),
+          },
+        };
+
+        // Create plane mesh with shaders
+        planeMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(2, 2),
+          new THREE.ShaderMaterial({
+            uniforms: shaderUniforms,
+            vertexShader,
+            fragmentShader,
+          })
+        );
+
+        scene.add(planeMesh);
+
+        // Setup renderer
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        shaderContainer.appendChild(renderer.domElement);
+
+        // Event listeners for mouse
+        shaderContainer.addEventListener("mousemove", handleMouseMove, false);
+
+        animateScene();
+      }
+
+      function animateScene() {
+        requestAnimationFrame(animateScene);
+
+        currentState.mousePosition.x = updateValue(
+          targetState.mousePosition.x,
+          currentState.mousePosition.x,
+          ANIMATION_CONFIG.transitionSpeed
+        );
+        currentState.mousePosition.y = updateValue(
+          targetState.mousePosition.y,
+          currentState.mousePosition.y,
+          ANIMATION_CONFIG.transitionSpeed
+        );
+        currentState.waveIntensity = updateValue(
+          targetState.waveIntensity,
+          currentState.waveIntensity,
+          ANIMATION_CONFIG.transitionSpeed
+        );
+
+        const uniforms = planeMesh.material.uniforms;
+        uniforms.u_intensity.value = currentState.waveIntensity;
+        uniforms.u_time.value += 0.005;
+        uniforms.u_mouse.value.set(
+          currentState.mousePosition.x,
+          currentState.mousePosition.y
+        );
+
+        renderer.render(scene, camera);
+      }
+
+      function updateValue(targetState, current, transitionSpeed) {
+        return current + (targetState - current) * transitionSpeed;
+      }
+
+      function handleMouseMove(event) {
+        const rect = shaderContainer.getBoundingClientRect();
+        targetState.mousePosition.x =
+          ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        targetState.mousePosition.y =
+          -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      }
+
+      function handleMouseOver() {
+        targetState.waveIntensity = ANIMATION_CONFIG.hoverIntensity;
+      }
+
+      function handleMouseOut() {
+        targetState.waveIntensity = ANIMATION_CONFIG.baseIntensity;
+        targetState.mousePosition = { x: 0, y: 0 };
+      }
+
+      initializeScene();
+    </script>
+  </body>
+</html>
