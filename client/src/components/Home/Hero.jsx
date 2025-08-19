@@ -193,16 +193,13 @@ const Hero = () => {
               className="relative inline text-3xl font-semibold border-0 lg:text-4xl border-amber-600"
             >
               <span>I&apos;m&nbsp;</span>
-              {!canvasLoaded ||
-                (w < 600 && (
-                  <div
-                    className={`inline text-[32px] border-0 border-amber-50`}
-                  >
-                    <span className="font-bold text-[32px] text-amber-500">
-                      SIVA
-                    </span>
-                  </div>
-                ))}
+              {(!canvasLoaded || w < 600) && (
+                <div className={`inline text-[32px] border-0 border-amber-50`}>
+                  <span className="font-bold text-[32px] text-amber-500">
+                    SIVA
+                  </span>
+                </div>
+              )}
               {/* <span className=" text-4xl font-bold text-transparent bg-gradient-to-r from-[#b57e10] via-[#f9df7b] via-[#b57e10] to-[#c7992b] bg-clip-text">Nani</span> */}
               {canvasLoaded && w > 600 && (
                 <div
