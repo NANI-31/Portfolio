@@ -64,7 +64,10 @@ export default function Footer() {
   };
   return (
     <div
-      className={clsx(theme === "dark" ? "bg-[#111]" : "bg-white", "w-full")}
+      className={clsx(
+        theme === "dark" ? "bg-[#111]" : "bg-white",
+        "w-full shadow-[0_30px_50px_1px_rgba(255,255,255,1)]"
+      )}
     >
       <div className="w-full p-10 bg-black rounded-t-2xl ">
         <div className="space-y-10 text-white lg:grid lg:grid-cols-4 lg:gap-20">

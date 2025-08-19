@@ -10,6 +10,7 @@ import {
   SiMongodb,
   SiPostman,
   SiCloudinary,
+  SiSocketdotio,
 } from "react-icons/si";
 import { PiFramerLogoFill } from "react-icons/pi";
 import { TbApi } from "react-icons/tb";
@@ -22,7 +23,11 @@ const style = { fontSize: "clamp(2rem,4vw,2.5rem)" };
 const skillsData = {
   Frontend: [
     { name: "HTML", icon: <FaHtml5 style={style} />, color: "text-red-500" },
-    { name: "CSS", icon: <IoLogoCss3 style={style} />, color: "text-blue-400" },
+    {
+      name: "CSS",
+      icon: <IoLogoCss3 style={style} />,
+      color: "text-purple-400",
+    },
     {
       name: "JavaScript",
       icon: <IoLogoJavascript style={style} />,
@@ -48,7 +53,7 @@ const skillsData = {
     {
       name: "Node JS",
       icon: <FaNodeJs style={style} />,
-      color: "text-green-600",
+      color: "text-emerald-500",
     },
     {
       name: "Express",
@@ -56,9 +61,9 @@ const skillsData = {
       color: "text-gray-600",
     },
     {
-      name: "MongoDB",
-      icon: <SiMongodb style={style} />,
-      color: "text-green-600",
+      name: "Socket.IO",
+      icon: <SiSocketdotio style={style} />,
+      color: "text-white-600",
     },
   ],
   Database: [

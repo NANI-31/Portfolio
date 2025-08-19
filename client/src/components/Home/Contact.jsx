@@ -65,7 +65,7 @@ const Contact = () => {
           </section>
           <section
             className={clsx(
-              theme === "dark" ? "bg-[#33363f]" : "bg-gray-400",
+              theme === "dark" ? "bg-[#33363f]" : "bg-gray-200",
               "order-2 relative top-5 border-0 lg:order-2 rounded-sm shadow-[0px_0px_0px_0px_rgba(255,255,255,0.2)]"
             )}
           >

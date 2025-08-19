@@ -1,5 +1,7 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
+import { useLocation, useNavigationType } from "react-router-dom";
 import Hero from "./components/Home/Hero";
+import Navbar from "./components/Navbar";
 const About = React.lazy(() => import("./components/Home/About"));
 const Education = React.lazy(() => import("./components/Home/Education"));
 const Services = React.lazy(() => import("./components/Home/Services"));
@@ -10,8 +12,23 @@ const Contact = React.lazy(() => import("./components/Home/Contact"));
 const Landing1 = React.lazy(() => import("./Landing1"));
 
 const App = () => {
+  const location = useLocation();
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    const hash = location.hash?.replace("#", "");
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100); // delay to ensure DOM is loaded
+      }
+    }
+  }, [location]);
   return (
     <>
+      {/* <Navbar /> */}
       <main className="bg-[#111]">
         <div>{/* <Landing1 /> */}</div>
         <div id="home">

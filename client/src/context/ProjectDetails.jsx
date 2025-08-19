@@ -13,6 +13,33 @@ export default function ProjectDetails() {
       liveUrl: "https://yourportfolio.com",
     },
     {
+      id: 22,
+      title: "Tasklist App",
+      subtitle:
+        "A full-stack todo app with user authentication and cloud features",
+      skills: [
+        "React",
+        "Tailwindcss",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JWT",
+        "Cloudinary",
+        "framer motion",
+      ],
+      description:
+        "A productivity-focused task manager where users can create, update, and manage todos with secure login, image uploads, and token-based authentication. Features responsive UI and MongoDB integration for persistent storage.",
+      image: "/projects/tasklist/bg.png",
+      additionalImages: [
+        "/projects/tasklist/img1.png",
+        "/projects/tasklist/img2.png",
+        "/projects/tasklist/img3.png",
+        "/projects/tasklist/img4.png",
+      ],
+      githubUrl: "https://github.com/NANI-31/todo",
+      liveUrl: "https://ticklist.onrender.com",
+    },
+    {
       id: 2,
       title: "E-commerce Platform",
       subtitle: "A full-stack shopping site with admin dashboard",

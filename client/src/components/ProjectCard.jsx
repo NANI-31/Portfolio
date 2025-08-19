@@ -11,7 +11,7 @@ const ProjectCard = ({ project }) => {
       className="rounded-xl border-2 border-gray-500/80 backdrop-blur-md max-w-[400px] pt-5 px-5"
     >
       <img
-        src="bg1.jpg"
+        src={project.image}
         alt={project.title}
         className="w-100 h-50 rounded-2xl"
       />

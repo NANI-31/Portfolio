@@ -91,7 +91,7 @@ const HomeName = ({ w }) => {
     <group position={[0, 0, 0]}>
       <Center>
         <Text3D {...textConfig}>
-          Nani
+          siva
           <meshStandardMaterial {...materialConfig} />
         </Text3D>
       </Center>
@@ -129,7 +129,6 @@ const Hero = () => {
     };
   }, []);
 
-  useEffect(() => {}, []);
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -149,49 +148,41 @@ const Hero = () => {
   return (
     // <div className="lg:px-20 px-8 min-h-[85vh] flex flex-col justify-center bg-white text-black dark:bg-[#111] dark:text-white">
     <div
-      className={clsx(
-        "lg:px-20 px-8 min-h-[85vh] flex flex-col justify-center",
-        theme === "dark" ? "text-white bg-[#111]" : "text-black bg-white"
-      )}
+      id="hero"
+      className="border-0 lg:px-20 px-8 min-h-[85vh] flex flex-col justify-center bgg"
     >
-      <main className="relative grid lg:grid-cols-2">
-        <section
-          data-scroll
-          data-scroll-speed="0"
-          className="grid lg:grid-cols-5"
-        >
+      <main className="relative border-0 grid lg:grid-cols-2">
+        <section className="grid lg:grid-cols-5">
           <div className="col-span-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.4, y: 100 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 50 }}
               viewport={{ once: true }}
-              className=""
+              className="relative"
             >
-              <img
-                src="/bg1.jpg"
-                alt=""
-                height={600}
-                width={600}
-                className="w-full mx-auto md:max-w-[500px]"
-              />
+              <div className="lg:absolute -top-20 left-0 w-full h-full">
+                <img
+                  src="/imgs/aa1.png"
+                  alt="nani"
+                  height={200}
+                  width={400}
+                  className="w-full mx-auto left-20 -top-30 md:max-w-[500px] 4absolute border-0 filter grayscale-100"
+                />
+              </div>
             </motion.div>
           </div>
         </section>
 
-        <section
-          className="relative z-10 flex flex-col justify-between"
-          data-scroll
-          data-scroll-speed="0"
-        >
-          <div className="lg:max-w-[500px] relative ">
+        <section className="relative z-10 flex flex-col border-0 justify-between">
+          <div className="lg:max-w-[500px] relative max-md:mt-10 ">
             <motion.h1
               initial={{ opacity: 0, scale: 0.4, x: 100 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 50 }}
               viewport={{ once: true }}
             >
-              Hi There ,
+              Hi There&nbsp;,
             </motion.h1>
 
             <motion.h1
@@ -201,14 +192,19 @@ const Hero = () => {
               viewport={{ once: true }}
               className="relative inline text-3xl font-semibold border-0 lg:text-4xl border-amber-600"
             >
-              <span>I&apos;m</span>
-              {!canvasLoaded && (
-                <div className={`inline border-0 border-amber-50`}>
-                  <span className="font-bold text-amber-500">{""} NANI</span>
-                </div>
-              )}
+              <span>I&apos;m&nbsp;</span>
+              {!canvasLoaded ||
+                (w < 600 && (
+                  <div
+                    className={`inline text-[32px] border-0 border-amber-50`}
+                  >
+                    <span className="font-bold text-[32px] text-amber-500">
+                      SIVA
+                    </span>
+                  </div>
+                ))}
               {/* <span className=" text-4xl font-bold text-transparent bg-gradient-to-r from-[#b57e10] via-[#f9df7b] via-[#b57e10] to-[#c7992b] bg-clip-text">Nani</span> */}
-              {canvasLoaded && (
+              {canvasLoaded && w > 600 && (
                 <div
                   className={clsx(
                     "absolute border-0",
@@ -232,12 +228,12 @@ const Hero = () => {
                     >
                       <HomeName w={w} />
                     </Float>
-                    {/* <Environment preset="city" /> */}
-                    {/* <EffectComposer>
-                                <Bloom mipmapBlur luminanceThreshold={0} luminanceSmoothing={0} intensity={1} />
-                            </EffectComposer> */}
-                    {/* <OrbitControls enableZoom={false} enableDamping dampingFactor={0.1} rotateSpeed={0.5} /> */}
                   </Canvas>
+                  {/* <Environment preset="city" /> */}
+                  {/* <EffectComposer>
+                              <Bloom mipmapBlur luminanceThreshold={0} luminanceSmoothing={0} intensity={1} />
+                          </EffectComposer> */}
+                  {/* <OrbitControls enableZoom={false} enableDamping dampingFactor={0.1} rotateSpeed={0.5} /> */}
                 </div>
               )}
             </motion.h1>
@@ -296,12 +292,7 @@ const Hero = () => {
                 <FaLinkedin />
               </a>
               <div className="flex justify-center h-full min-h-[100px] rotate-90 absolute top-[0px] left-[49%]">
-                <div
-                  className={clsx(
-                    theme === "dark" ? "bg-white" : "bg-black",
-                    "w-1"
-                  )}
-                ></div>
+                <div className={clsx("bg", "w-1")}></div>
               </div>
             </div>
           </motion.div>

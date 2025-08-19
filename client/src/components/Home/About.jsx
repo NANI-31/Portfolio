@@ -86,14 +86,15 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 50 }}
               viewport={{ once: true }}
-              className=""
+              className="relative flex justify-center items-center border-0"
             >
               <img
-                src="bg1.jpg"
+                // src="/imgs/bg141.jpg"
+                src="/imgs/bg1411.png"
                 width="1000"
                 height="1000"
                 alt=""
-                className="md:max-w-[400px] rounded-2xl mx-auto border-r-1 border-b-1"
+                className="max-w-[200px] md:max-w-[250px] -top-20 lg:absolute rounded-2xl mx-auto border-r-0 border-b-0 filter grayscale-100"
               />
             </motion.div>
           </div>

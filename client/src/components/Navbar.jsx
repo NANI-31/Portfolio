@@ -6,9 +6,14 @@ import { FaSun, FaMoon } from "react-icons/fa";
 import clsx from "clsx";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/globalSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 // import { div } from 'three/tsl';
 
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.global.theme);
   const [open, setOpen] = useState(false);
@@ -23,6 +28,17 @@ const Navbar = () => {
     // { label: "Experience", id: "experience", offset: 60 },
     { label: "Contact", id: "contact", offset: -10 },
   ];
+  const handleNavigation1 = (sectionId) => {
+    const currentPath = location.pathname;
+
+    if (currentPath === "/" && document.getElementById(sectionId)) {
+      // Scroll on same page
+      document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navigate to home and scroll to section using hash
+      navigate(`/#${sectionId}`);
+    }
+  };
 
   const handleNavigation = (route) => {
     toggleDrawer(false);
@@ -62,13 +78,16 @@ const Navbar = () => {
                     "text-4xl hello absolute top-[-15px]"
                   )}
                 >
-                  NaNi✨
+                  SiVa✨
                 </h1>
               </div>
             </section>
             <section className="relative hidden gap-8 font-semibold border-0 border-amber-500 lg:flex rounded-2xl">
               {routes.map((route, index) => (
                 <button
+                  // to={route.id.toLowerCase()}
+                  // spy={true}
+                  // smooth={true}
                   key={index}
                   className={clsx(
                     theme === "dark" ? "text-white" : "text-black",
