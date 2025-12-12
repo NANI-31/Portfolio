@@ -28,31 +28,23 @@ const Navbar = () => {
     // { label: "Experience", id: "experience", offset: 60 },
     { label: "Contact", id: "contact", offset: -10 },
   ];
-  const handleNavigation1 = (sectionId) => {
-    const currentPath = location.pathname;
-
-    if (currentPath === "/" && document.getElementById(sectionId)) {
-      // Scroll on same page
-      document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
-    } else {
-      // Navigate to home and scroll to section using hash
-      navigate(`/#${sectionId}`);
-    }
-  };
-
   const handleNavigation = (route) => {
     toggleDrawer(false);
-    const target = document.getElementById(route.id.toLowerCase());
-    if (!target) return;
-    const offset = route.offset ?? 80;
+    const sectionId = route.id.toLowerCase();
 
-    const elementPosition = target.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    if (location.pathname === "/" && document.getElementById(sectionId)) {
+      const target = document.getElementById(sectionId);
+      const offset = route.offset ?? 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    } else {
+      navigate(`/#${sectionId}`);
+    }
   };
 
   return (

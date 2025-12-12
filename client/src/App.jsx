@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { useLocation, useNavigationType } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Hero from "./components/Home/Hero";
 import Navbar from "./components/Navbar";
 const About = React.lazy(() => import("./components/Home/About"));
@@ -13,24 +13,35 @@ const Landing1 = React.lazy(() => import("./Landing1"));
 
 const App = () => {
   const location = useLocation();
-  const navType = useNavigationType();
 
   useEffect(() => {
     const hash = location.hash?.replace("#", "");
     if (hash) {
-      const element = document.getElementById(hash);
-      if (element) {
-        setTimeout(() => {
+      // Retry finding the element for up to 2 seconds
+      let attempts = 0;
+      const interval = setInterval(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          console.log("Scrolling to:", hash);
           element.scrollIntoView({ behavior: "smooth" });
-        }, 100); // delay to ensure DOM is loaded
-      }
+          clearInterval(interval);
+        } else {
+          console.log("Waiting for element:", hash);
+        }
+
+        attempts++;
+        if (attempts > 20) {
+          // 2 seconds (100ms * 20)
+          clearInterval(interval);
+        }
+      }, 100);
+
+      return () => clearInterval(interval);
     }
   }, [location]);
   return (
     <>
-      {/* <Navbar /> */}
       <main className="bg-[#111]">
-        <div>{/* <Landing1 /> */}</div>
         <div id="home">
           <Hero />
         </div>
@@ -60,31 +71,6 @@ const App = () => {
       </main>
     </>
   );
-  // const [landing, setLanding] = useState(true);
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setLanding(false);
-  //   }, 3200);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // });
-  // return <div>{landing ? <Landing1 /> : <All />}</div>;
-  // return <Landing1 />;
-
-  // return (
-  // 	<div className="h-screen">
-  // 		<Canvas>
-  // 			<LiquidImage url="/bg1.jpg" />
-  // 		</Canvas>
-  // 	</div>
-  // );
-  // return (
-  // 	<div className="border" style={{ borderImage: 'linear-gradient(to right, #b57e10, #f9df7b, #b57e10, #c7992b) 1' }}>
-  // 		hello
-  // 	</div>
-  // );
 };
 
 export default App;

@@ -11,6 +11,7 @@ import {
   SiPostman,
   SiCloudinary,
   SiSocketdotio,
+  SiMysql,
 } from "react-icons/si";
 import { PiFramerLogoFill } from "react-icons/pi";
 import { TbApi } from "react-icons/tb";
@@ -78,8 +79,8 @@ const skillsData = {
       color: "text-yellow-500",
     },
     {
-      name: "Cloudinary",
-      icon: <SiCloudinary style={style} />,
+      name: "MySQL",
+      icon: <SiMysql style={style} />,
       color: "text-blue-500",
     },
   ],
