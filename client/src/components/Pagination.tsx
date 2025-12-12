@@ -1,13 +1,18 @@
 import { useGlobalContext } from "../context/GlobalProvider";
 
-const Pagination = ({ totalItems, itemsPerPage }) => {
+interface PaginationProps {
+  totalItems: number;
+  itemsPerPage: number;
+}
+
+const Pagination = ({ totalItems, itemsPerPage }: PaginationProps) => {
   const { pagination, setPagination } = useGlobalContext();
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <div className="flex gap-4 mt-8">
       <button
-        onClick={() => setPagination((prev) => Math.max(prev - 1, 1))}
+        onClick={() => setPagination(Math.max(pagination - 1, 1))}
         disabled={pagination === 1}
         className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
       >
@@ -27,7 +32,7 @@ const Pagination = ({ totalItems, itemsPerPage }) => {
       ))}
 
       <button
-        onClick={() => setPagination((prev) => Math.min(prev + 1, totalPages))}
+        onClick={() => setPagination(Math.min(pagination + 1, totalPages))}
         disabled={pagination === totalPages}
         className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
       >

@@ -4,14 +4,14 @@ import Typed from "typed.js";
 import { CiSearch } from "react-icons/ci";
 import { useLocation, useNavigate } from "react-router-dom";
 const Search = () => {
-  const inputRef = useRef(null);
-  const typedRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const typedRef = useRef<Typed | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { searchTerm, setSearchTerm } = useGlobalContext();
 
   const [term, setTerm] = useState("");
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(e.target.value);
   };
 
@@ -31,7 +31,9 @@ const Search = () => {
     });
 
     return () => {
-      typedRef.current.destroy(); // cleanup
+      if (typedRef.current) {
+        typedRef.current.destroy(); // cleanup
+      }
     };
   }, []);
   const handleSearch = () => {

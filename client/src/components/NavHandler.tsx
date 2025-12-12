@@ -1,50 +1,52 @@
-import { useState } from "react";
+// import { useLocation } from 'react-router-dom';
+
+// const NavHandler = () => {
+// 	const location = useLocation();
+// 	const pathname = location.pathname;
+// 	return <div>{pathname.startsWith('/admin') ? '' : <Navbar />}</div>;
+// };
+// export default NavHandler;
+import { useState, useContext } from "react";
 import { Drawer } from "@mui/material";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { useGlobalContext } from "../context/GlobalProvider";
+// import { FaSun, FaMoon } from "react-icons/fa";
 import clsx from "clsx";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../redux/globalSlice";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll";
 // import { div } from 'three/tsl';
 
 const Navbar = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-  const theme = useSelector((state) => state.global.theme);
+  const { theme, toggleTheme } = useGlobalContext();
   const [open, setOpen] = useState(false);
-  const toggleDrawer = (fn) => {
+  const toggleDrawer = (fn: boolean) => {
     setOpen(fn);
   };
   const routes = [
     { label: "Home", id: "home", offset: 120 },
     { label: "About", id: "about", offset: 100 },
     { label: "Skills", id: "skills", offset: 40 },
-    { label: "Projects", id: "project", offset: 60 },
-    // { label: "Experience", id: "experience", offset: 60 },
+    { label: "Projects", id: "projects", offset: 120 },
+    { label: "Experience", id: "experience", offset: 60 },
     { label: "Contact", id: "contact", offset: -10 },
   ];
-  const handleNavigation = (route) => {
+  interface Route {
+    label?: string;
+    id: string;
+    offset: number;
+  }
+  const handleNavigation = (route: Route) => {
     toggleDrawer(false);
-    const sectionId = route.id.toLowerCase();
+    const target = document.getElementById(route.id.toLowerCase());
+    if (!target) return;
+    const offset = route.offset ?? 80;
 
-    if (location.pathname === "/" && document.getElementById(sectionId)) {
-      const target = document.getElementById(sectionId);
-      const offset = route.offset ?? 80;
-      const elementPosition = target.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+    const elementPosition = target.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    } else {
-      navigate(`/#${sectionId}`);
-    }
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -54,7 +56,7 @@ const Navbar = () => {
         "top-0 left-0 z-[100]"
       )}
     >
-      <div className="fixed lg:p-5 w-full lg:px-20 p-3 z-[100] ">
+      <div className="navbar fixed lg:p-5 w-full lg:px-20 p-3 z-[100]">
         <div className="p-[2px] rounded-2xl">
           <main
             className="flex items-center justify-between p-5 bg-white/10 rounded-2xl backdrop-blur-xl"
@@ -70,16 +72,13 @@ const Navbar = () => {
                     "text-4xl hello absolute top-[-15px]"
                   )}
                 >
-                  SiVa✨
+                  NaNi✨
                 </h1>
               </div>
             </section>
             <section className="relative hidden gap-8 font-semibold border-0 border-amber-500 lg:flex rounded-2xl">
               {routes.map((route, index) => (
                 <button
-                  // to={route.id.toLowerCase()}
-                  // spy={true}
-                  // smooth={true}
                   key={index}
                   className={clsx(
                     theme === "dark" ? "text-white" : "text-black",
@@ -91,7 +90,7 @@ const Navbar = () => {
                 </button>
               ))}
               <span
-                onClick={() => dispatch(toggleTheme())}
+                onClick={toggleTheme}
                 className="absolute text-xl transition rounded cursor-pointer -right-20 hover:scale-110"
               >
                 {theme === "light" ? "☀️" : "🌙"}
@@ -148,7 +147,7 @@ const Navbar = () => {
                 ))}
                 <span
                   onClick={() => {
-                    toggleDrawer(false), dispatch(toggleTheme());
+                    toggleDrawer(false), toggleTheme();
                   }}
                   className="text-xl transition rounded cursor-pointer absolutee -right-20 hover:scale-110"
                 >

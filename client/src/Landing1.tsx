@@ -7,7 +7,7 @@ const LandingLoader = () => {
     typeof window !== "undefined" && window.innerWidth < 640 ? 6 : 10;
   useEffect(() => {
     let currentValue = 0;
-    let timeoutId;
+    let timeoutId: NodeJS.Timeout;
     const updateCounter = () => {
       if (currentValue >= 100) {
         gsap.to(".counter", {

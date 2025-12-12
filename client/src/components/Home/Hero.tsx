@@ -19,22 +19,25 @@ import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import { RootState } from "../../redux/store";
 
 // import { FaGithub } from 'react-icons/fa';
 // import { FaLinkedin } from 'react-icons/fa';
-const HomeName = ({ w }) => {
+const HomeName = ({ w }: { w: number }) => {
   const gradientTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 256;
     canvas.height = 256;
     const context = canvas.getContext("2d");
-    const gradient = context.createLinearGradient(0, 256, 256, 0);
-    gradient.addColorStop(1.0, "#b57e10"); // from
-    gradient.addColorStop(0.5, "#f9df7b"); // via 1
-    gradient.addColorStop(0.33, "#b57e10"); // via 2
-    gradient.addColorStop(1.0, "#c7992b"); // to
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, 256, 256);
+    if (context) {
+      const gradient = context.createLinearGradient(0, 256, 256, 0);
+      gradient.addColorStop(1.0, "#b57e10"); // from
+      gradient.addColorStop(0.5, "#f9df7b"); // via 1
+      gradient.addColorStop(0.33, "#b57e10"); // via 2
+      gradient.addColorStop(1.0, "#c7992b"); // to
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, 256, 256);
+    }
     return new THREE.CanvasTexture(canvas);
   }, []);
   const dynamic = w < 1024 ? 1.5 : 1.8;
@@ -99,10 +102,10 @@ const HomeName = ({ w }) => {
   );
 };
 const Hero = () => {
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
   const [canvasLoaded, setCanvasLoaded] = useState(false);
-  const typedRef = useRef(null);
-  const typedInstance = useRef(null);
+  const typedRef = useRef<HTMLSpanElement>(null);
+  const typedInstance = useRef<Typed | null>(null);
   const [fov, setFov] = useState(50);
   const [w, setW] = useState(1024);
   useEffect(() => {
@@ -167,7 +170,7 @@ const Hero = () => {
                   alt="nani"
                   height={200}
                   width={400}
-                  className="w-full mx-auto left-20 -top-30 md:max-w-[500px] 4absolute border-0 filter grayscale-100"
+                  className="w-full mx-auto left-20 -top-30 md:max-w-[500px] overflow-hidden border-0 filter grayscale-100"
                 />
               </div>
             </motion.div>

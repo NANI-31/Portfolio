@@ -11,11 +11,11 @@ import { useControls } from "leva";
 
 export default function Model() {
   const { viewport } = useThree();
-  const { nodes } = useGLTF("/shards.glb");
+  const { nodes } = useGLTF("/shards.glb") as any;
 
   return (
     <group scale={viewport.width / 1.5}>
-      {nodes.Scene.children.map((mesh, i) => {
+      {nodes.Scene.children.map((mesh: any, i: number) => {
         return <Mesh data={mesh} key={i} />;
       })}
       <Font />
@@ -25,7 +25,7 @@ export default function Model() {
 
 function Font() {
   const [textWidth, setTextWidth] = useState(0);
-  const textRef = useRef();
+  const textRef = useRef<THREE.Mesh>(null);
 
   useLayoutEffect(() => {
     if (textRef.current) {
@@ -96,7 +96,7 @@ function Font() {
   );
 }
 
-function Mesh({ data }) {
+function Mesh({ data }: { data: any }) {
   const materialProps = useControls({
     thickness: { value: 0.275, min: 0, max: 1, step: 0.01 },
     ior: { value: 1.8, min: 0, max: 3, step: 0.1 },

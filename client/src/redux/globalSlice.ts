@@ -1,11 +1,25 @@
-// src/store/globalSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+// src/store/globalSlice.ts
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface Pagination {
+  currentPage: number;
+  totalPages: number;
+}
+
+interface GlobalState {
+  projects: any[]; // Replace 'any' with Project interface when defined
+  certifications: any[]; // Replace 'any' with Certification interface when defined
+  searchTerm: string;
+  pagination: Pagination;
+  theme: "light" | "dark";
+}
 
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const savedTheme = localStorage.getItem("theme");
-const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+const initialTheme =
+  (savedTheme as "light" | "dark") || (prefersDark ? "dark" : "light");
 
-const initialState = {
+const initialState: GlobalState = {
   projects: [],
   certifications: [],
   searchTerm: "",
@@ -20,16 +34,16 @@ const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    setProjects: (state, action) => {
+    setProjects: (state, action: PayloadAction<any[]>) => {
       state.projects = action.payload;
     },
-    setCertifications: (state, action) => {
+    setCertifications: (state, action: PayloadAction<any[]>) => {
       state.certifications = action.payload;
     },
-    setSearchTerm: (state, action) => {
+    setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
     },
-    setPagination: (state, action) => {
+    setPagination: (state, action: PayloadAction<Pagination>) => {
       state.pagination = action.payload;
     },
     toggleTheme: (state) => {

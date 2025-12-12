@@ -1,11 +1,33 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { Project } from "../data/projects";
 
-export const GlobalContext = createContext();
+interface GlobalContextType {
+  projects: Project[];
+  setProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  certifications: any[];
+  setCertifications: React.Dispatch<React.SetStateAction<any[]>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  pagination: number;
+  setPagination: React.Dispatch<React.SetStateAction<number>>;
+  theme: string;
+  toggleTheme: () => void;
+}
 
-const GlobalProvider = ({ children }) => {
-  const [projects, setProjects] = useState([]);
+export const GlobalContext = createContext<GlobalContextType | undefined>(
+  undefined
+);
+
+const GlobalProvider = ({ children }: { children: ReactNode }) => {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [certifications, setCertifications] = useState([]);
+  const [certifications, setCertifications] = useState<any[]>([]);
   const [pagination, setPagination] = useState(1);
   const [theme, setTheme] = useState("light");
   useEffect(() => {

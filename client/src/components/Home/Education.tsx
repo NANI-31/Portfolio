@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
 import { IoReader } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import { RootState } from "../../redux/store";
 
 const Education = () => {
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
   // const gradients = ['bl', 'br', 'tl', 'tr'];
   // const [gradientIndex, setGradientIndex] = useState(0);
   // const [currentGradientSuffix, setCurrentGradientSuffix] = useState(gradients[0]);

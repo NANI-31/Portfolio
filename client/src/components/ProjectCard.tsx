@@ -1,12 +1,23 @@
 import { BsGlobe2 } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
+import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
-const ProjectCard = ({ project }) => {
-  const theme = useSelector((state) => state.global.theme);
+interface Project {
+  id: string | number;
+  image: string;
+  title: string;
+  subtitle: string;
+  liveUrl: string;
+  githubUrl: string;
+}
+
+const ProjectCard = ({ project }: { project: Project }) => {
+  const theme = useSelector((state: RootState) => state.global.theme);
   return (
-    <div
+    <motion.div
       viewport={{ once: true }}
       className="rounded-xl border-2 border-gray-500/80 backdrop-blur-md max-w-[400px] pt-5 px-5"
     >
@@ -70,7 +81,7 @@ const ProjectCard = ({ project }) => {
           </h1>
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

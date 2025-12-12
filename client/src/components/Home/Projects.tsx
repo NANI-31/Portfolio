@@ -2,13 +2,15 @@ import ProjectCard from "../ProjectCard";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { setProjects } from "../../redux/globalSlice";
-import useProjectDetails from "../../context/ProjectDetails";
+import { projects } from "../../data/projects";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { RootState } from "../../redux/store";
+
 const Projects = () => {
-  const projects = useProjectDetails();
-  const theme = useSelector((state) => state.global.theme);
+  // const projects = useProjectDetails();
+  const theme = useSelector((state: RootState) => state.global.theme);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProjects(projects));

@@ -1,48 +1,49 @@
-// import { useLocation } from 'react-router-dom';
-
-// const NavHandler = () => {
-// 	const location = useLocation();
-// 	const pathname = location.pathname;
-// 	return <div>{pathname.startsWith('/admin') ? '' : <Navbar />}</div>;
-// };
-// export default NavHandler;
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Drawer } from "@mui/material";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
-import { useGlobalContext } from "../context/GlobalProvider";
-import { FaSun, FaMoon } from "react-icons/fa";
+// import { FaSun, FaMoon } from "react-icons/fa";
 import clsx from "clsx";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/globalSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+// import { Link as ScrollLink } from "react-scroll";
+import { RootState } from "../redux/store";
 // import { div } from 'three/tsl';
 
+import { navRoutes, NavRoute } from "../data/navRoutes";
+
 const Navbar = () => {
-  const { theme, toggleTheme } = useGlobalContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.global.theme);
   const [open, setOpen] = useState(false);
-  const toggleDrawer = (fn) => {
+  const toggleDrawer = (fn: boolean) => {
     setOpen(fn);
   };
-  const routes = [
-    { label: "Home", id: "home", offset: 120 },
-    { label: "About", id: "about", offset: 100 },
-    { label: "Skills", id: "skills", offset: 40 },
-    { label: "Projects", id: "projects", offset: 120 },
-    { label: "Experience", id: "experience", offset: 60 },
-    { label: "Contact", id: "contact", offset: -10 },
-  ];
-
-  const handleNavigation = (route) => {
+  const routes = navRoutes;
+  const handleNavigation = (route: NavRoute) => {
     toggleDrawer(false);
-    const target = document.getElementById(route.id.toLowerCase());
-    if (!target) return;
-    const offset = route.offset ?? 80;
+    const sectionId = route.id.toLowerCase();
 
-    const elementPosition = target.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    const target = document.getElementById(sectionId);
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
+    if (location.pathname === "/" && target) {
+      const offset = route.offset ?? 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      window.history.pushState(null, "", `#${sectionId}`);
+    } else {
+      console.log("Navigating to", `/#${sectionId}`);
+      navigate(`/#${sectionId}`);
+    }
   };
 
   return (
@@ -52,7 +53,7 @@ const Navbar = () => {
         "top-0 left-0 z-[100]"
       )}
     >
-      <div className="navbar fixed lg:p-5 w-full lg:px-20 p-3 z-[100]">
+      <div className="fixed lg:p-5 w-full lg:px-20 p-3 z-[100] ">
         <div className="p-[2px] rounded-2xl">
           <main
             className="flex items-center justify-between p-5 bg-white/10 rounded-2xl backdrop-blur-xl"
@@ -68,13 +69,16 @@ const Navbar = () => {
                     "text-4xl hello absolute top-[-15px]"
                   )}
                 >
-                  NaNi✨
+                  SiVa✨
                 </h1>
               </div>
             </section>
             <section className="relative hidden gap-8 font-semibold border-0 border-amber-500 lg:flex rounded-2xl">
               {routes.map((route, index) => (
                 <button
+                  // to={route.id.toLowerCase()}
+                  // spy={true}
+                  // smooth={true}
                   key={index}
                   className={clsx(
                     theme === "dark" ? "text-white" : "text-black",
@@ -86,7 +90,7 @@ const Navbar = () => {
                 </button>
               ))}
               <span
-                onClick={toggleTheme}
+                onClick={() => dispatch(toggleTheme())}
                 className="absolute text-xl transition rounded cursor-pointer -right-20 hover:scale-110"
               >
                 {theme === "light" ? "☀️" : "🌙"}
@@ -119,7 +123,7 @@ const Navbar = () => {
             },
           }}
         >
-          <section className="flex flex-col justify-between w-full min-w-[250px] max-h-[100vh] px-10">
+          <section className="flex overflow-hidden flex-col justify-between w-full min-w-[250px] max-h-[100vh] px-10">
             <div>
               <div className="flex justify-end pt-10">
                 <IoMdClose
@@ -143,7 +147,7 @@ const Navbar = () => {
                 ))}
                 <span
                   onClick={() => {
-                    toggleDrawer(false), toggleTheme();
+                    toggleDrawer(false), dispatch(toggleTheme());
                   }}
                   className="text-xl transition rounded cursor-pointer absolutee -right-20 hover:scale-110"
                 >

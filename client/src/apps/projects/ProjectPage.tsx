@@ -3,9 +3,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import ProjectCard from "../../components/ProjectCard";
 import Search from "../../components/Search";
 import { motion } from "framer-motion";
-import useProjectDetails from "../../context/ProjectDetails";
+import { projects } from "../../data/projects";
 export default function ProductsPage() {
-  const projects = useProjectDetails();
+  // const projects = useProjectDetails();
   console.log(projects.length);
   return (
     <div className="px-8 py-8 pt-5 lg:px-20 lg:pt-8">

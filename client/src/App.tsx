@@ -11,32 +11,28 @@ const Experience = React.lazy(() => import("./components/Home/Experience"));
 const Contact = React.lazy(() => import("./components/Home/Contact"));
 const Landing1 = React.lazy(() => import("./Landing1"));
 
+import { navRoutes } from "./data/navRoutes";
+
 const App = () => {
   const location = useLocation();
 
   useEffect(() => {
     const hash = location.hash?.replace("#", "");
     if (hash) {
-      // Retry finding the element for up to 2 seconds
-      let attempts = 0;
-      const interval = setInterval(() => {
+      setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
-          console.log("Scrolling to:", hash);
-          element.scrollIntoView({ behavior: "smooth" });
-          clearInterval(interval);
-        } else {
-          console.log("Waiting for element:", hash);
-        }
+          const route = navRoutes.find((r) => r.id === hash);
+          const offset = route?.offset ?? 0;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-        attempts++;
-        if (attempts > 20) {
-          // 2 seconds (100ms * 20)
-          clearInterval(interval);
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
         }
-      }, 100);
-
-      return () => clearInterval(interval);
+      }, 500);
     }
   }, [location]);
   return (
@@ -45,29 +41,41 @@ const App = () => {
         <div id="home">
           <Hero />
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
-          <div id="about">
+        <div id="about">
+          <Suspense fallback={<div>Loading...</div>}>
             <About />
-          </div>
-          <div id="education">
+          </Suspense>
+        </div>
+        <div id="education">
+          <Suspense fallback={<div>Loading...</div>}>
             <Education />
-          </div>
-          <div id="services">
+          </Suspense>
+        </div>
+        <div id="services">
+          <Suspense fallback={<div>Loading...</div>}>
             <Services />
-          </div>
-          <div id="skills">
+          </Suspense>
+        </div>
+        <div id="skills">
+          <Suspense fallback={<div>Loading...</div>}>
             <Skills />
-          </div>
-          <div id="project">
+          </Suspense>
+        </div>
+        <div id="project">
+          <Suspense fallback={<div>Loading...</div>}>
             <Projects />
-          </div>
-          {/* <div id="experience" >
-          <Experience />
+          </Suspense>
+        </div>
+        {/* <div id="experience" >
+          <Suspense fallback={<div>Loading...</div>}>
+            <Experience />
+          </Suspense>
         </div> */}
-          <div id="contact">
+        <div id="contact">
+          <Suspense fallback={<div>Loading...</div>}>
             <Contact />
-          </div>
-        </Suspense>
+          </Suspense>
+        </div>
       </main>
     </>
   );

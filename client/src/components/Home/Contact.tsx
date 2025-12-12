@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import { RootState } from "../../redux/store";
 
 const Contact = () => {
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
   return (
     <div
       className={clsx(
@@ -113,7 +114,6 @@ const Contact = () => {
                   Message
                 </label>
                 <textarea
-                  type="text"
                   // className="w-full px-3 overflow-auto resize-none border-b-1 focus:outline-none custom-scrollbar"
                   className="w-full px-3 resize-none border-b-1 focus:outline-none scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent"
                 />

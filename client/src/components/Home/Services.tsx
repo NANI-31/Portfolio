@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
+import { RootState } from "../../redux/store";
 
 const cardData = ["Full stack", "Front End", "Back End"];
 
 const Services = () => {
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
   const isDark = theme === "dark";
 
   return (

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import clsx from "clsx";
 import { RiShining2Fill } from "react-icons/ri";
 import Marquee from "react-fast-marquee";
+import { RootState } from "../../redux/store";
 
 const marq = [
   "Software Development Engineer (SDE) ",
@@ -16,7 +17,7 @@ const marq = [
 
 const About = () => {
   const [w, setW] = useState(1024);
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,7 +63,7 @@ const About = () => {
               }}
               className={`${
                 w <= 640
-                  ? "leading-7 text-justify tracking-wide"
+                  ? "leading-7 text-justify tracking-wid"
                   : "leading-9 text-justify"
               }`}
             >
@@ -89,7 +90,6 @@ const About = () => {
               className="relative flex justify-center items-center border-0"
             >
               <img
-                // src="/imgs/bg141.jpg"
                 src="/imgs/bg1411.png"
                 width="1000"
                 height="1000"

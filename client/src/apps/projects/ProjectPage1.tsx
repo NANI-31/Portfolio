@@ -4,30 +4,33 @@ import { FaGithub } from "react-icons/fa";
 import { BsGlobe2 } from "react-icons/bs";
 import { toast } from "react-toastify";
 // import { useGlobalContext } from "../../context/GlobalProvider";
-import useProjectDetails from "../../context/ProjectDetails";
+import { projects, Project } from "../../data/projects";
 
 export default function ProductsPage1() {
   const { id } = useParams();
-  const [project, setProject] = useState("");
-  const projects = useProjectDetails();
+  const [project, setProject] = useState<Project | null>(null);
+  // const projects = useProjectDetails();
   // const pro = useSelector((state) => state.global.projects);
   const [currentImage, setCurrentImage] = useState("bg1.jpg");
   // const { projects } = useGlobalContext();
   // console.log(pro);
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchProject = () => {
       try {
+        if (!id) return;
         const res = projects.find((p) => p.id === Number(id));
-        setProject(res);
-        console.log(res.image);
-        setCurrentImage(res.image);
+        if (res) {
+          setProject(res);
+          console.log(res.image);
+          setCurrentImage(res.image);
+        }
       } catch (error) {
         console.log(error);
         toast.error("Error fetching Project");
       }
     };
     fetchProject();
-  }, []);
+  }, [id, projects]);
   return (
     <div className="px-8 py-10 lg:px-20">
       <div>
@@ -102,7 +105,6 @@ export default function ProductsPage1() {
                 height="500"
                 alt="project image"
                 // priority={false}
-                placeholder="blur"
                 // blurDataURL={image}
                 className="rounded-md w-fit  max-h-[200px] aspect-square object-contain "
               />
@@ -116,7 +118,6 @@ export default function ProductsPage1() {
             // onClick={() => setCurrentImage(project?.image)}
             alt="product image"
             // priority={false}
-            placeholder="blur"
             // blurDataURL={project?.image}
             className="rounded-md  object-contain w-fit max-h-[200px]  aspect-square"
           />

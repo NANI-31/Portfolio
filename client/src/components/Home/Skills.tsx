@@ -17,6 +17,7 @@ import { PiFramerLogoFill } from "react-icons/pi";
 import { TbApi } from "react-icons/tb";
 import { RiNextjsFill } from "react-icons/ri";
 import clsx from "clsx";
+import { RootState } from "../../redux/store";
 // import { useTheme } from "../../context/ThemeContext";
 import { useSelector } from "react-redux";
 const style = { fontSize: "clamp(2rem,4vw,2.5rem)" };
@@ -86,7 +87,18 @@ const skillsData = {
   ],
 };
 
-const SkillCategory = ({ title, skills }) => (
+interface Skill {
+  name: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+interface SkillCategoryProps {
+  title: string;
+  skills: Skill[];
+}
+
+const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
   <div className="flex flex-wrap items-center gap-3 pb-8 m-auto border-0 lg:w-full lg:justify-center">
     <div className="flex-1 text-2xl font-bold lg:pb-0">{title}</div>
     <div className="grid max-xs:gap-y-0 max-md:gap-y-5 lg:flex-3 border-0 grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] w-full justify-around">
@@ -120,7 +132,7 @@ const SkillCategory = ({ title, skills }) => (
 
 const Skills = () => {
   const [w, setW] = useState(1024);
-  const theme = useSelector((state) => state.global.theme);
+  const theme = useSelector((state: RootState) => state.global.theme);
 
   useEffect(() => {
     const handleResize = () => setW(window.innerWidth);

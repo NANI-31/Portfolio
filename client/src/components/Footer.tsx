@@ -7,14 +7,20 @@ import { IoCall } from "react-icons/io5";
 import { useGlobalContext } from "../context/GlobalProvider";
 import clsx from "clsx";
 
-const routes = [
+interface Route {
+  label: string;
+  id: string;
+  offset: number;
+}
+
+const routes: Route[] = [
   { label: "Home", id: "home", offset: 120 },
   { label: "About", id: "about", offset: 100 },
   { label: "Skills", id: "skills", offset: 40 },
   { label: "Projects", id: "project", offset: 60 },
 ];
 
-const AnimatedText = ({ text }) => {
+const AnimatedText = ({ text }: { text: string }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -49,7 +55,7 @@ const AnimatedText = ({ text }) => {
 export default function Footer() {
   const { theme } = useGlobalContext();
   const date = new Date().getFullYear();
-  const handleNavigation = (route) => {
+  const handleNavigation = (route: Route) => {
     const target = document.getElementById(route.id.toLowerCase());
     if (!target) return;
     const offset = route.offset ?? 80;
