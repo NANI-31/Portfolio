@@ -14,7 +14,7 @@ const Projects = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setProjects(projects));
-    console.log(projects.length);
+    // console.log(projects.length);
   }, []);
   return (
     <div

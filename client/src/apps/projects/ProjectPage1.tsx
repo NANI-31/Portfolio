@@ -21,11 +21,11 @@ export default function ProductsPage1() {
         const res = projects.find((p) => p.id === Number(id));
         if (res) {
           setProject(res);
-          console.log(res.image);
+          // console.log(res.image);
           setCurrentImage(res.image);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast.error("Error fetching Project");
       }
     };

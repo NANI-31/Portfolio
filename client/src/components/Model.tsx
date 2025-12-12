@@ -32,7 +32,7 @@ function Font() {
       // You can calculate the width of the text using its geometry
       const boundingBox = new THREE.Box3().setFromObject(textRef.current);
       const width = boundingBox.max.x - boundingBox.min.x;
-      console.log(width);
+      // console.log(width);
       setTextWidth(width);
     }
   }, []);

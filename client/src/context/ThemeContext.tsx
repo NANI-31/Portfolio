@@ -35,10 +35,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setTheme(initialTheme);
 
     if (theme === "dark") {
-      console.log(theme);
+      // console.log(theme);
       document.documentElement.classList.add("dark");
     } else {
-      console.log(theme);
+      // console.log(theme);
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);

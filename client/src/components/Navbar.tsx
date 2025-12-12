@@ -41,7 +41,7 @@ const Navbar = () => {
       });
       window.history.pushState(null, "", `#${sectionId}`);
     } else {
-      console.log("Navigating to", `/#${sectionId}`);
+      // console.log("Navigating to", `/#${sectionId}`);
       navigate(`/#${sectionId}`);
     }
   };
